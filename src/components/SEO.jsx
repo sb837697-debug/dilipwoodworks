@@ -11,8 +11,8 @@ export default function SEO({
   schema
 }) {
   const fullTitle = title 
-    ? `${title} | ${companyInfo.name}` 
-    : `${companyInfo.name} | Bespoke Furniture & Architectural Joinery | Chandigarh`;
+    ? (title.includes(companyInfo.name) ? title : `${title} | ${companyInfo.name}`) 
+    : `Rack Manufacturer in Chandigarh | ${companyInfo.name}`;
 
   const siteUrl = "https://dilipwoodworks.com";
   const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;

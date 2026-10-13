@@ -66,8 +66,8 @@ export default function Home() {
   return (
     <>
       <SEO 
-        title="Bespoke Solid Wood Furniture & Architectural Joinery"
-        description="Dilip Wood Works crafts heirloom-quality solid Burma Teak dining tables, luxury sheesham wardrobes, and grand pivot doors in Sarangpur, Chandigarh."
+        title="Rack Manufacturer in Chandigarh | Dilip Wood Works"
+        description="Dilip Wood Works is a trusted rack manufacturer in Chandigarh, offering custom wooden racks, shop racks, display racks, and shop counters."
         canonical="/"
       />
 

@@ -1,7 +1,7 @@
 export const companyInfo = {
   name: "Dilip Wood Works",
-  tagline: "Master Artisans in Bespoke Woodcraft & Architectural Joinery",
-  shortDesc: "Heirloom-grade solid wood furniture, artisanal carved doors, and bespoke modular cabinetry handcrafted in Sarangpur, Chandigarh.",
+  tagline: "Trusted Rack Manufacturer & Master Artisans in Chandigarh",
+  shortDesc: "Dilip Wood Works is a trusted rack manufacturer in Chandigarh, offering custom wooden racks, shop racks, display racks, and shop counters.",
   phone: "+91 9872703528",
   phoneRaw: "9872703528",
   email: "sb612589@gmail.com",
