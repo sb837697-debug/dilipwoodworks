@@ -1,5 +1,71 @@
 export const products = [
   {
+    id: "p-study-desk",
+    slug: "workshop-custom-study-desk",
+    name: "Handcrafted Workshop Executive Study Desk",
+    category: "Commercial & Study",
+    tagline: "Authentic workshop-built study desk with antique brass pulls and lower cupboard",
+    shortDescription: "Custom-made study and office desk handcrafted in our Sarangpur workshop featuring a smooth natural oak grain surface, utility drawer with brass ring handle, and side cabinet.",
+    fullDescription: "Built directly on the workbench at Dilip Wood Works in Sarangpur, this custom study desk combines practicality with durable craftsmanship. Engineered for students, home offices, and workspaces, it features a warm textured wood-grain top, a sliding drawer fitted with an antique brass ring pull, and a spacious side storage compartment. Every joint and corner is hand-beaded with solid wood edging to ensure years of trouble-free daily use.",
+    keyBenefits: [
+      "Authentic custom build crafted right in our Sarangpur workshop",
+      "Ergonomic workspace surface with scratch-resistant wood grain finish",
+      "Smooth glide drawer with ornamental antique brass ring hardware",
+      "Spacious integrated side storage cupboard with magnetic catch"
+    ],
+    timberOptions: ["Seasoned Plywood with Teak Beading", "Solid Sheesham", "Natural Oak Laminate"],
+    finishOptions: ["Natural Blonde Oak & Off-White", "Classic Teak Finish", "Dark Walnut"],
+    dimensions: "48\" L x 24\" W x 30\" H (Custom sizes available)",
+    leadTime: "2 to 3 Weeks",
+    featured: true,
+    image: "/workshop-study-desk.png",
+    gallery: [
+      "/workshop-study-desk.png",
+      "/workshop-shelving-rack.png",
+      "/hero-workshop.jpg"
+    ],
+    specifications: {
+      "Origin": "Dilip Wood Works Sarangpur Workshop",
+      "Edge Detailing": "Solid Wood Hand-Planed Beading",
+      "Hardware": "Heavy-Duty Brass Ring Pulls & Soft Hinges",
+      "Storage": "Top Utility Drawer + Bottom Door Compartment",
+      "Warranty": "10-Year Craftsmanship Warranty"
+    }
+  },
+  {
+    id: "p-shelving-rack",
+    slug: "modular-pigeonhole-display-rack",
+    name: "Modular Multi-Compartment Wooden Display Rack",
+    category: "Bedrooms & Storage",
+    tagline: "Heavy-duty 25-grid architectural pigeonhole storage shelving",
+    shortDescription: "Heavy-duty multi-tier modular wooden display rack with 25 reinforced storage cubbies, custom-fabricated in our Sarangpur mill for libraries, shops, and studios.",
+    fullDescription: "Photographed directly on our workshop floor, this multi-tier wooden pigeonhole shelving unit is built for heavy-duty organization. Featuring 25 uniform grid cubbies with reinforced internal divider dado joints, it provides massive storage for books, architectural samples, boutique retail displays, or warehouse inventory. Hand-assembled with calibrated high-density core board and solid wood edge-banding.",
+    keyBenefits: [
+      "Robust 25-grid compartment design for heavy load-bearing capacity",
+      "Reinforced dado interlock jointing preventing shelf sag under heavy loads",
+      "Customizable cube dimensions for books, binders, and retail display",
+      "Can be finished in raw organic timber, laminate veneer, or duco paint"
+    ],
+    timberOptions: ["Commercial Hardwood Ply", "BWP Marine Ply", "Teak Ply with Solid Edging"],
+    finishOptions: ["Natural Wood Grain", "Matte White / Off-White", "Duco Paint Custom"],
+    dimensions: "60\" W x 14\" D x 78\" H (Custom grid counts available)",
+    leadTime: "2 to 3 Weeks",
+    featured: true,
+    image: "/workshop-shelving-rack.png",
+    gallery: [
+      "/workshop-shelving-rack.png",
+      "/workshop-study-desk.png",
+      "/hero-workshop.jpg"
+    ],
+    specifications: {
+      "Origin": "Dilip Wood Works Sarangpur Workshop",
+      "Construction": "High-Grade Calibrated Ply with Solid Wood Edging",
+      "Compartments": "25 Precision-Aligned Cubby Units (5x5 Grid)",
+      "Load Rating": "Tested for 200+ kg distributed storage",
+      "Warranty": "10-Year Structural Guarantee"
+    }
+  },
+  {
     id: "p1",
     slug: "imperial-teak-dining-table",
     name: "Imperial Teakwood 8-Seater Dining Suite",

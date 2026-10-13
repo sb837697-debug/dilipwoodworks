@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShieldCheck, Sparkles, Award, Ruler } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Sparkles, Award, Ruler, CheckCircle2 } from 'lucide-react';
 import { companyInfo } from '../data/companyInfo';
 
 export default function Hero() {
@@ -9,6 +10,54 @@ export default function Hero() {
     { icon: Ruler, text: "Bespoke Made-to-Measure" },
     { icon: Sparkles, text: "Direct Artisan Pricing" },
   ];
+
+  // Real workshop showcases
+  const heroSlides = [
+    {
+      id: "desk",
+      image: "/workshop-study-desk.png",
+      title: "Custom Executive Study Desk",
+      subtitle: "Handcrafted in Sarangpur Workshop with Brass Ring Pulls",
+      badge: "Real Workshop Build",
+      link: "/products/workshop-custom-study-desk"
+    },
+    {
+      id: "rack",
+      image: "/workshop-shelving-rack.png",
+      title: "Modular 25-Grid Display Rack",
+      subtitle: "Heavy-Duty Pigeonhole Storage on Workshop Floor",
+      badge: "Workshop Floor Photo",
+      link: "/products/modular-pigeonhole-display-rack"
+    },
+    {
+      id: "workshop",
+      image: "/hero-workshop.jpg",
+      title: "Master Studio & Joinery Mill",
+      subtitle: "Milk Pind Road, Near Botanical Garden, Sarangpur",
+      badge: "Chandigarh Workshop",
+      link: "/products"
+    },
+    {
+      id: "dining",
+      image: "/dining-furniture.jpg",
+      title: "Pierre Jeanneret Style Dining Suite",
+      subtitle: "Solid Burma Teak with Fluted Wood Panelling",
+      badge: "Signature Collection",
+      link: "/products/imperial-teak-dining-table"
+    }
+  ];
+
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+
+  // Auto rotate slide every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlideIndex((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
+
+  const activeSlide = heroSlides[currentSlideIndex];
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-stone-900 via-stone-900 to-stone-950 text-white py-16 lg:py-24 border-b border-stone-800">
@@ -35,7 +84,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-base sm:text-lg text-stone-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              At <strong className="text-white font-semibold">Dilip Wood Works</strong>, we shape raw, seasoned Burma Teak, Indian Sheesham, and White Oak into bespoke dining suites, luxury modular kitchens, and architectural statement doors. No flimsy flat-packs—only pure, heirloom-grade joinery.
+              At <strong className="text-white font-semibold">Dilip Wood Works</strong>, we shape raw, seasoned Burma Teak, Indian Sheesham, and White Oak into bespoke dining suites, luxury study desks, modular storage racks, and architectural statement doors. No flimsy flat-packs—only pure, heirloom-grade joinery.
             </p>
 
             {/* CTAs */}
@@ -70,42 +119,79 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Hero Image Card */}
+          {/* Right Hero Image Card with Workshop Showcase Slider */}
           <div className="lg:col-span-5 relative">
             <div className="relative mx-auto max-w-md lg:max-w-none">
               
               {/* Outer decorative glow frame */}
               <div className="absolute -inset-1.5 bg-gradient-to-r from-amber-500/30 to-amber-700/20 rounded-2xl blur-lg opacity-75" />
               
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-700/80 bg-stone-900 group">
-                <img
-                  src="/hero-workshop.jpg"
-                  alt="Dilip Wood Works Master Artisan Workshop in Chandigarh"
-                  className="w-full h-[380px] sm:h-[450px] object-cover group-hover:scale-105 transition-transform duration-700"
-                  loading="eager"
-                  width="800"
-                  height="600"
-                />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-700/80 bg-stone-950 group">
+                <div className="relative h-[380px] sm:h-[430px] w-full overflow-hidden bg-stone-900 flex items-center justify-center">
+                  <img
+                    key={activeSlide.id}
+                    src={activeSlide.image}
+                    alt={activeSlide.title}
+                    className="w-full h-full object-cover transition-all duration-700 animate-fadeIn"
+                    loading="eager"
+                  />
 
-                {/* Subtle gradient vignette overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/30 to-transparent" />
+                  {/* Gradient vignette overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/30 to-transparent" />
 
-                {/* Floating Workshop Badge on Image */}
-                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-xl bg-stone-900/90 backdrop-blur-md border border-stone-700/70 text-left shadow-lg">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-semibold text-amber-400 uppercase tracking-wider">
-                        Master Studio & Mill
-                      </p>
-                      <h2 className="text-sm sm:text-base font-serif font-bold text-white mt-0.5">
-                        Botanical Garden Road, Sarangpur
-                      </h2>
-                    </div>
-                    <span className="px-2.5 py-1 rounded bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/30">
-                      Est. 1999
+                  {/* Top Badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="inline-flex items-center space-x-1.5 bg-stone-900/90 backdrop-blur-md text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-500/30 shadow-md">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />
+                      <span>{activeSlide.badge}</span>
                     </span>
                   </div>
+
+                  {/* Floating Workshop Badge on Image */}
+                  <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-stone-900/95 backdrop-blur-md border border-stone-700/80 text-left shadow-lg">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="min-w-0">
+                        <h2 className="text-sm sm:text-base font-serif font-bold text-white truncate">
+                          {activeSlide.title}
+                        </h2>
+                        <p className="text-xs text-stone-300 truncate mt-0.5">
+                          {activeSlide.subtitle}
+                        </p>
+                      </div>
+                      <Link
+                        to={activeSlide.link}
+                        className="shrink-0 bg-amber-500 hover:bg-amber-600 text-stone-950 text-xs font-bold px-3 py-1.5 rounded-lg transition-colors flex items-center space-x-1"
+                      >
+                        <span>View</span>
+                        <ArrowRight className="w-3 h-3" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
+
+                {/* Interactive Slide Switcher Buttons */}
+                <div className="bg-stone-950 p-3 border-t border-stone-800 flex items-center justify-between gap-2">
+                  <span className="text-[11px] font-semibold text-stone-400 uppercase tracking-wider pl-1">
+                    Workshop Showcase:
+                  </span>
+                  <div className="flex items-center space-x-1.5">
+                    {heroSlides.map((slide, idx) => (
+                      <button
+                        key={slide.id}
+                        onClick={() => setCurrentSlideIndex(idx)}
+                        aria-label={`Show ${slide.title}`}
+                        className={`px-2.5 py-1 rounded-md text-[11px] font-medium transition-all ${
+                          currentSlideIndex === idx
+                            ? 'bg-amber-500 text-stone-950 font-bold shadow'
+                            : 'bg-stone-800/80 text-stone-300 hover:bg-stone-800'
+                        }`}
+                      >
+                        {idx + 1}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
