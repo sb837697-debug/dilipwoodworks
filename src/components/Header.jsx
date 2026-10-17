@@ -84,8 +84,8 @@ export default function Header() {
               className="group flex items-center space-x-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg p-1"
               aria-label="Dilip Wood Works - Home"
             >
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-stone-950 shadow-md group-hover:scale-105 transition-transform duration-300">
-                <Hammer className="w-5 h-5 text-stone-950 transform group-hover:rotate-12 transition-transform duration-300" />
+              <div className="w-11 h-11 rounded-lg bg-stone-950 border border-amber-500/40 flex items-center justify-center p-1 shadow-md group-hover:scale-105 group-hover:border-amber-400 transition-all duration-300">
+                <img src="/favicon.png" alt="Dilip Wood Works Logo" className="w-full h-full object-contain" />
               </div>
               <div>
                 <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white block leading-tight group-hover:text-amber-400 transition-colors">
