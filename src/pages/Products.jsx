@@ -1,229 +1,181 @@
-import { useState, useMemo } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import ProductCard from '../components/ProductCard';
 import CTASection from '../components/CTASection';
-import { products } from '../data/products';
-import { Search, Filter, RotateCcw, Trees, Sparkles, ArrowRight } from 'lucide-react';
+import { companyInfo } from '../data/companyInfo';
+import { 
+  Store, 
+  CreditCard, 
+  ShoppingBag, 
+  Phone, 
+  MessageCircle, 
+  Clock, 
+  MapPin, 
+  CheckCircle2, 
+  Sparkles,
+  ArrowRight
+} from 'lucide-react';
 
 export default function Products() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'All';
-
-  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedTimber, setSelectedTimber] = useState('All');
-
-  // Extract unique categories
-  const categories = ['All', 'Dining & Living', 'Bedrooms & Storage', 'Doors & Architectural', 'Modular Kitchens', 'Commercial & Study'];
-  const timberTypes = ['All', 'Burma Teak', 'Indian Sheesham', 'American White Oak', 'American Walnut'];
-
-  // Update category and sync search param
-  const handleCategoryChange = (cat) => {
-    setSelectedCategory(cat);
-    if (cat === 'All') {
-      searchParams.delete('category');
-    } else {
-      searchParams.set('category', cat);
+  const shopCategories = [
+    {
+      icon: Store,
+      title: "किराना और ग्रोसरी स्टोर रैक",
+      desc: "राशन, पैकेट वाले सामान और रोजमर्रा की जरूरतों के लिए मजबूत शेल्विंग।"
+    },
+    {
+      icon: CreditCard,
+      title: "शॉप काउंटर और बिलिंग काउंटर",
+      desc: "कैश ड्रॉअर, बिलिंग मशीन और ग्राहकों को सामान देने के लिए उपयोगी काउंटर।"
+    },
+    {
+      icon: ShoppingBag,
+      title: "जनरल स्टोर और डिस्प्ले रैक",
+      desc: "स्टेशनरी, कॉस्मेटिक्स और रिटेल सामान को सुव्यवस्थित रखने के लिए मल्टी-टियर रैक।"
     }
-    setSearchParams(searchParams);
-  };
-
-  const handleResetFilters = () => {
-    setSelectedCategory('All');
-    setSearchQuery('');
-    setSelectedTimber('All');
-    setSearchParams({});
-  };
-
-  // Filtered products list
-  const filteredProducts = useMemo(() => {
-    return products.filter((product) => {
-      // Category match
-      const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
-
-      // Timber match
-      const matchesTimber = selectedTimber === 'All' || product.timberOptions?.some(t => t.toLowerCase().includes(selectedTimber.toLowerCase()));
-
-      // Search match (name, description, timber, category)
-      const q = searchQuery.toLowerCase().trim();
-      const matchesSearch = !q || 
-        product.name.toLowerCase().includes(q) ||
-        product.shortDescription.toLowerCase().includes(q) ||
-        product.category.toLowerCase().includes(q) ||
-        product.keyBenefits?.some(b => b.toLowerCase().includes(q));
-
-      return matchesCategory && matchesTimber && matchesSearch;
-    });
-  }, [selectedCategory, selectedTimber, searchQuery]);
+  ];
 
   return (
     <>
       <SEO 
-        title="Custom Woodwork & Furniture Catalog"
-        description="Browse handcrafted solid Burma Teak dining tables, sheesham bedroom suites, custom modular kitchens, and architectural pivot doors by Dilip Wood Works."
+        title="शॉप रैक और काउंटर कैटलॉग – Dilip Wood Works, चंडीगढ़"
+        description="नई दुकान के लिए शॉप रैक, किराना शेल्विंग, ग्रोसरी डिस्प्ले और बिलिंग काउंटर। नया कैटलॉग जल्द लाइव होगा। तुरंत साइज व कोटेशन के लिए संपर्क करें।"
         canonical="/products"
       />
 
       {/* Header banner */}
-      <section className="bg-stone-900 text-white py-14 lg:py-18 border-b border-stone-800 relative overflow-hidden">
+      <section className="bg-stone-900 text-white py-14 lg:py-20 border-b border-stone-800 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left">
-          <span className="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1 rounded-full">
-            Artisan Catalog
+          <span className="text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1.5 rounded-full inline-flex items-center space-x-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>शॉप रैक और काउंटर कैटलॉग</span>
           </span>
           <h1 className="font-serif text-3xl sm:text-5xl font-bold text-white mt-4 mb-4">
-            Custom Furniture & Architectural Works
+            नई दुकान के लिए शॉप रैक और काउंटर
           </h1>
           <p className="text-base sm:text-lg text-stone-300 max-w-2xl leading-relaxed">
-            Every piece is custom handcrafted to order in our Sarangpur workshop using seasoned solid hardwoods, traditional interlocking joinery, and non-toxic finishes.
+            किराना दुकान, ग्रोसरी स्टोर, जनरल स्टोर और रिटेल दुकानों के लिए मजबूत, टिकाऊ और उपयोगी शॉप रैक व काउंटर।
           </p>
         </div>
       </section>
 
-      {/* Filter and Search toolbar */}
-      <section className="py-8 bg-stone-100/80 border-b border-stone-200 sticky top-16 z-30 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      {/* Updating Soon Main Announcement Section */}
+      <section className="py-16 sm:py-20 bg-stone-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Search Input */}
-            <div className="relative w-full md:w-96">
-              <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search dining, teak, wardrobe, pivot door..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-full border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-stone-400 hover:text-stone-700"
-                >
-                  Clear
-                </button>
-              )}
-            </div>
-
-            {/* Timber species filter dropdown */}
-            <div className="flex items-center space-x-3 w-full md:w-auto justify-end">
-              <span className="text-xs font-bold uppercase tracking-wider text-stone-500 hidden sm:inline">
-                Wood Species:
-              </span>
-              <select
-                value={selectedTimber}
-                onChange={(e) => setSelectedTimber(e.target.value)}
-                className="px-4 py-2.5 rounded-full border border-stone-300 bg-white text-xs sm:text-sm font-medium text-stone-700 focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-sm"
-              >
-                {timberTypes.map((t) => (
-                  <option key={t} value={t}>
-                    {t === 'All' ? 'All Wood Species' : t}
-                  </option>
-                ))}
-              </select>
-
-              {(selectedCategory !== 'All' || selectedTimber !== 'All' || searchQuery) && (
-                <button
-                  onClick={handleResetFilters}
-                  className="inline-flex items-center space-x-1.5 text-xs font-semibold text-amber-800 hover:text-amber-950 px-3 py-2 rounded-full hover:bg-stone-200 transition-colors"
-                  title="Reset all filters"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Reset</span>
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Category Filter Pills */}
-          <div className="flex items-center space-x-2 overflow-x-auto pb-1 scrollbar-none">
-            {categories.map((cat) => {
-              const count = cat === 'All' 
-                ? products.length 
-                : products.filter(p => p.category === cat).length;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => handleCategoryChange(cat)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 flex items-center space-x-1.5 ${
-                    selectedCategory === cat
-                      ? 'bg-amber-600 text-white shadow-md'
-                      : 'bg-white text-stone-700 hover:bg-stone-200 border border-stone-200'
-                  }`}
-                >
-                  <span>{cat}</span>
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                    selectedCategory === cat ? 'bg-amber-700 text-amber-100' : 'bg-stone-100 text-stone-500'
-                  }`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
-
-      {/* Product Catalog Grid */}
-      <section className="py-16 bg-stone-50 min-h-[500px]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="flex items-center justify-between mb-8 text-sm text-stone-500">
-            <p>
-              Showing <strong className="text-stone-900 font-bold">{filteredProducts.length}</strong> {filteredProducts.length === 1 ? 'custom work' : 'custom works'}
-            </p>
-            {selectedCategory !== 'All' && (
-              <span className="text-xs font-medium text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
-                Filtered by: {selectedCategory}
-              </span>
-            )}
-          </div>
-
-          {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            /* Empty State */
-            <div className="bg-white rounded-3xl p-12 text-center max-w-xl mx-auto border border-stone-200 shadow-sm my-10">
-              <div className="w-16 h-16 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-4 border border-amber-200">
-                <Search className="w-8 h-8" />
+          <div className="bg-white rounded-3xl border border-stone-200 shadow-xl overflow-hidden">
+            {/* Top accent badge header */}
+            <div className="bg-gradient-to-r from-amber-600 to-amber-700 px-6 sm:px-10 py-5 text-white flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center space-x-2.5">
+                <Clock className="w-5 h-5 text-amber-200 animate-pulse" />
+                <span className="text-sm sm:text-base font-bold tracking-wide">
+                  कैटलॉग अपडेट हो रहा है (Updating Soon)
+                </span>
               </div>
-              <h3 className="font-serif text-2xl font-bold text-stone-900 mb-2">
-                No matching pieces found
-              </h3>
-              <p className="text-sm text-stone-600 leading-relaxed mb-6">
-                We couldn't find any works matching your filters or search term "{searchQuery}". Remember, everything we create is completely bespoke!
+              <span className="text-xs font-semibold bg-stone-950/40 text-amber-100 px-3 py-1 rounded-full border border-amber-300/30">
+                चंडीगढ़ वर्कशॉप में काम चालू है
+              </span>
+            </div>
+
+            {/* Content body */}
+            <div className="p-6 sm:p-10 lg:p-12 text-center md:text-left">
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 leading-snug mb-4">
+                नया शॉप रैक और काउंटर कैटलॉग जल्द ही लाइव किया जा रहा है
+              </h2>
+              
+              <p className="text-base text-stone-600 leading-relaxed mb-8">
+                हम नई दुकानों के लिए विशेष रूप से डिज़ाइन किए गए लकड़ी व कमर्शियल रैक, किराना डिस्प्ले और बिलिंग काउंटरों के नए मॉडल और फोटो इस पेज पर जल्द जोड़ रहे हैं। इस बीच, अगर आप नई दुकान खोल रहे हैं, तो आप अपनी दुकान का साइज और जरूरत सीधे हमसे साझा कर सकते हैं।
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <button
-                  onClick={handleResetFilters}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-stone-900 text-white text-xs font-bold hover:bg-stone-800 transition-colors"
+
+              {/* What we make to order */}
+              <div className="mb-10">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-amber-800 mb-4 flex items-center justify-center md:justify-start space-x-2">
+                  <span>उपलब्ध निर्माण व कस्टमाइजेशन:</span>
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {shopCategories.map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <div 
+                        key={idx}
+                        className="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 hover:border-amber-300 transition-colors flex items-start space-x-3.5 text-left"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-bold text-stone-900 mb-1">{item.title}</h4>
+                          <p className="text-xs text-stone-600 leading-relaxed">{item.desc}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* How to order / Inquire in 3 easy steps */}
+              <div className="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-5 sm:p-6 mb-10">
+                <h4 className="text-sm font-bold text-stone-900 mb-3 flex items-center space-x-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                  <span>दुकान के लिए रैक या काउंटर कैसे बनवाएं?</span>
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm text-stone-700">
+                  <div className="flex items-start space-x-2">
+                    <span className="w-5 h-5 rounded-full bg-amber-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">1</span>
+                    <span>दुकान की खाली जगह या दीवार की नाप लें</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <span className="w-5 h-5 rounded-full bg-amber-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">2</span>
+                    <span>WhatsApp पर साइज या फोटो शेयर करें</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <span className="w-5 h-5 rounded-full bg-amber-600 text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">3</span>
+                    <span>उचित बजट और मजबूत मटेरियल पर चर्चा करें</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons: WhatsApp & Call */}
+              <div className="pt-2 border-t border-stone-100 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                <a
+                  href={companyInfo.social.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center space-x-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm sm:text-base font-bold px-7 py-3.5 rounded-xl shadow-md transition-all duration-200"
                 >
-                  Clear All Filters
-                </button>
+                  <MessageCircle className="w-5 h-5" />
+                  <span>WhatsApp पर साइज भेजें</span>
+                </a>
+
+                <a
+                  href={`tel:${companyInfo.phoneRaw}`}
+                  className="inline-flex items-center justify-center space-x-2.5 bg-amber-600 hover:bg-amber-700 text-white text-sm sm:text-base font-bold px-7 py-3.5 rounded-xl shadow-md transition-all duration-200"
+                >
+                  <Phone className="w-5 h-5" />
+                  <span>कॉल करें: {companyInfo.phone}</span>
+                </a>
+
                 <Link
                   to="/contact"
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-amber-600 text-white text-xs font-bold hover:bg-amber-700 transition-colors"
+                  className="inline-flex items-center justify-center space-x-2 bg-stone-100 hover:bg-stone-200 text-stone-800 text-sm sm:text-base font-semibold px-6 py-3.5 rounded-xl transition-colors border border-stone-300"
                 >
-                  Inquire Custom Blueprint
+                  <MapPin className="w-4 h-4 text-stone-600" />
+                  <span>वर्कशॉप का पता</span>
                 </Link>
               </div>
+
             </div>
-          )}
+          </div>
 
         </div>
       </section>
 
       {/* Bottom CTA */}
       <CTASection 
-        title="Can't Find Your Exact Dimensions in the Catalog?"
-        subtitle="Every product shown above can be adjusted in length, width, timber species, and finish stain. We also build 100% custom designs from your architectural CAD blueprints."
-        primaryText="Request Custom Dimensions Quote"
+        title="नई दुकान की शुरुआत के लिए सही सलाह चाहिए?"
+        subtitle="किराना, ग्रोसरी या जनरल स्टोर के लिए कितने रैक और किस साइज का काउंटर सही रहेगा, इस पर सीधे हमारे कारीगर से सलाह लें।"
+        primaryText="सीधे संपर्क करें"
       />
     </>
   );

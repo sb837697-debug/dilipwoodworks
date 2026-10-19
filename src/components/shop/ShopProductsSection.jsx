@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Store, CreditCard, ShoppingBag, Sliders, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Store, CreditCard, ShoppingBag, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export default function ShopProductsSection() {
   const shopProducts = [
@@ -44,20 +44,6 @@ export default function ShopProductsSection() {
         "मल्टी-कंपार्टमेंट विभाजन",
         "दुकान को साफ-सुथरा व आकर्षक लुक"
       ]
-    },
-    {
-      id: "custom-racks",
-      number: "04",
-      icon: Sliders,
-      title: "4. जरूरत के अनुसार शॉप रैक और काउंटर",
-      description: "हर दुकान का साइज और सामान अलग होता है। इसलिए रैक और काउंटर चुनते समय दुकान की लंबाई-चौड़ाई, सामान का साइज, स्टोरेज और बजट ध्यान में रखना चाहिए। अपनी दुकान की जगह और जरूरत के बारे में हमें बताएं, ताकि उपलब्ध डिजाइन और मटेरियल के विकल्पों पर चर्चा की जा सके।",
-      image: "/hero-workshop.jpg",
-      tag: "कस्टम साइज व बजट",
-      features: [
-        "दुकान की लंबाई-चौड़ाई अनुसार डिजाइन",
-        "सामान के वजन और साइज के अनुकूल",
-        "मटेरियल और बजट के विभिन्न विकल्प"
-      ]
     }
   ];
 
@@ -88,8 +74,8 @@ export default function ShopProductsSection() {
           </Link>
         </div>
 
-        {/* Products Grid: 4 Items */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Products Grid: 3 Items */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {shopProducts.map((item) => {
             const Icon = item.icon;
             return (

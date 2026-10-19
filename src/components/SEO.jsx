@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { companyInfo } from '../data/companyInfo';
 
 export default function SEO({
-  title,
+  title = "नई दुकान के लिए शॉप रैक और काउंटर – Dilip Wood Works, चंडीगढ़",
   description = companyInfo.shortDesc,
   keywords = "Dilip wood works, bespoke furniture chandigarh, custom carpentry sarangpur, solid teak wood, sheesham furniture",
   canonical,
@@ -12,7 +12,7 @@ export default function SEO({
 }) {
   const fullTitle = title 
     ? (title.includes(companyInfo.name) ? title : `${title} | ${companyInfo.name}`) 
-    : `Rack Manufacturer in Chandigarh | ${companyInfo.name}`;
+    : "नई दुकान के लिए शॉप रैक और काउंटर – Dilip Wood Works, चंडीगढ़";
 
   const siteUrl = "https://dilipwoodworks.com";
   const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;

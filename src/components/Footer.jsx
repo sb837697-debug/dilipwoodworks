@@ -1,18 +1,17 @@
 import { Link } from 'react-router-dom';
 import { Hammer, Phone, Mail, MapPin, Clock, ArrowUpRight, MessageCircle } from 'lucide-react';
 import { companyInfo } from '../data/companyInfo';
-import { products } from '../data/products';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   // Top featured categories / products for quick footer discovery
   const productCategories = [
-    { name: "Dining & Living Collections", path: "/products?category=Dining%20%26%20Living" },
-    { name: "Bedrooms & Solid Wardrobes", path: "/products?category=Bedrooms%20%26%20Storage" },
-    { name: "Architectural & Grand Doors", path: "/products?category=Doors%20%26%20Architectural" },
-    { name: "Bespoke Modular Kitchens", path: "/products?category=Modular%20Kitchens" },
-    { name: "Commercial & Executive Desks", path: "/products?category=Commercial%20%26%20Study" },
+    { name: "किराना और ग्रोसरी रैक", path: "/products" },
+    { name: "बिलिंग व कैश काउंटर", path: "/products" },
+    { name: "जनरल स्टोर शेल्विंग", path: "/products" },
+    { name: "कस्टम साइज रैक", path: "/products" },
+    { name: "रिटेल शॉप डिस्प्ले", path: "/products" },
   ];
 
   const quickLinks = [
