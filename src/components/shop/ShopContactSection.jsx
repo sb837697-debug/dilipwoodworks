@@ -1,5 +1,6 @@
 import { Phone, Mail, MapPin, Clock, MessageSquare, ArrowRight } from 'lucide-react';
 import { companyInfo } from '../../data/companyInfo';
+import { trackContact } from '../../utils/metaPixel';
 
 export default function ShopContactSection() {
   const whatsappUrl = `https://wa.me/91${companyInfo.phoneRaw}?text=${encodeURIComponent(
@@ -143,6 +144,7 @@ export default function ShopContactSection() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackContact({ method: 'whatsapp', contentName: 'Shop Page Appointment Booking' })}
               className="mt-6 inline-flex items-center space-x-1.5 text-xs font-semibold text-amber-400 hover:text-amber-300"
             >
               <span>अपॉइंटमेंट बुक करें</span>
@@ -161,6 +163,7 @@ export default function ShopContactSection() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={`tel:${companyInfo.phoneRaw}`}
+              onClick={() => trackContact({ method: 'phone', contentName: 'Shop Page Bottom Call Button' })}
               className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-stone-950 font-bold px-8 py-3.5 rounded-full text-base shadow-xl transition-all"
             >
               <Phone className="w-5 h-5 text-stone-950" />
@@ -171,6 +174,7 @@ export default function ShopContactSection() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackContact({ method: 'whatsapp', contentName: 'Shop Page Bottom WhatsApp Button' })}
               className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-3.5 rounded-full text-base shadow-xl transition-all"
             >
               <MessageSquare className="w-5 h-5" />

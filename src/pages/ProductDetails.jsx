@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import SEO from '../components/SEO';
 import ProductCard from '../components/ProductCard';
 import ContactForm from '../components/ContactForm';
 import { products } from '../data/products';
 import { companyInfo } from '../data/companyInfo';
+import { trackViewContent, trackContact } from '../utils/metaPixel';
 import { 
   ArrowLeft, 
   CheckCircle2, 
@@ -28,6 +29,16 @@ export default function ProductDetails() {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [copiedLink, setCopiedLink] = useState(false);
   const [showInquiryForm, setShowInquiryForm] = useState(false);
+
+  useEffect(() => {
+    if (product) {
+      trackViewContent({
+        contentName: product.name,
+        contentId: product.id,
+        contentType: 'product'
+      });
+    }
+  }, [product]);
 
   // If product not found
   if (!product) {
@@ -227,6 +238,7 @@ export default function ProductDetails() {
                     href={`https://wa.me/${companyInfo.phoneRaw}?text=${whatsappMessage}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackContact({ method: 'whatsapp', contentName: `Product WhatsApp: ${product.name}` })}
                     className="inline-flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3.5 rounded-full text-sm shadow-md transition-all"
                   >
                     <MessageSquare className="w-4 h-4" />
@@ -237,6 +249,7 @@ export default function ProductDetails() {
                 <div className="flex items-center justify-between text-xs text-stone-500 pt-1">
                   <a
                     href={`tel:${companyInfo.phoneRaw}`}
+                    onClick={() => trackContact({ method: 'phone', contentName: `Product Call: ${product.name}` })}
                     className="flex items-center hover:text-stone-900 transition-colors font-medium"
                   >
                     <Phone className="w-3.5 h-3.5 mr-1.5 text-amber-600" />

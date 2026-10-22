@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import { Phone, Mail, MapPin, Menu, X, ArrowRight, Hammer } from 'lucide-react';
 import { companyInfo } from '../data/companyInfo';
+import { trackContact } from '../utils/metaPixel';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -51,6 +52,7 @@ export default function Header() {
           <div className="flex items-center space-x-5">
             <a 
               href={`tel:${companyInfo.phoneRaw}`} 
+              onClick={() => trackContact({ method: 'phone', contentName: 'Top Bar Phone Call' })}
               className="flex items-center text-amber-400 hover:text-amber-300 transition-colors font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-500 rounded px-1"
             >
               <Phone className="w-3.5 h-3.5 mr-1.5 text-amber-400" />
@@ -59,6 +61,7 @@ export default function Header() {
             <span className="text-stone-600">|</span>
             <a 
               href={`mailto:${companyInfo.email}`} 
+              onClick={() => trackContact({ method: 'email', contentName: 'Top Bar Email Link' })}
               className="flex items-center text-stone-300 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-amber-500 rounded px-1"
             >
               <Mail className="w-3.5 h-3.5 mr-1.5 text-amber-500" />
@@ -121,6 +124,7 @@ export default function Header() {
             <div className="hidden lg:flex items-center space-x-4">
               <a 
                 href={`tel:${companyInfo.phoneRaw}`}
+                onClick={() => trackContact({ method: 'phone', contentName: 'Header Desk Phone Call' })}
                 className="flex items-center space-x-2 text-stone-300 hover:text-amber-400 text-sm font-medium py-2 px-3 rounded-lg hover:bg-stone-800/60 transition-colors"
                 title="Call Master Craftsman"
               >
@@ -143,6 +147,7 @@ export default function Header() {
             <div className="flex md:hidden items-center space-x-2">
               <a
                 href={`tel:${companyInfo.phoneRaw}`}
+                onClick={() => trackContact({ method: 'phone', contentName: 'Header Mobile Phone Call' })}
                 className="p-2 text-amber-400 hover:bg-stone-800 rounded-lg"
                 aria-label="Call Dilip Wood Works"
               >

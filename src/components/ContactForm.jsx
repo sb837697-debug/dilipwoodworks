@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Send, CheckCircle2, AlertCircle, Loader2, MessageSquare, Mail } from 'lucide-react';
 import { companyInfo } from '../data/companyInfo';
+import { trackLead, trackContact } from '../utils/metaPixel';
 
 export default function ContactForm({ prefillSubject = "" }) {
   const [submissionStatus, setSubmissionStatus] = useState({
@@ -66,6 +67,13 @@ export default function ContactForm({ prefillSubject = "" }) {
             message: 'Your inquiry has been successfully transmitted to our master carpenter. We will review your blueprints and contact you within 4 business hours.',
             ticketId: generatedId
           });
+          // Dispatch Meta Lead conversion event (both browser Pixel and server CAPI)
+          trackLead({
+            fullName: data.fullName,
+            email: data.email,
+            phone: data.phone,
+            subject: data.subject
+          });
           reset();
         } else {
           const errData = await response.json().catch(() => ({}));
@@ -84,7 +92,14 @@ export default function ContactForm({ prefillSubject = "" }) {
       }
     } else {
       // Backend not yet configured in environment variables
-      // Prompt user transparently per prompt requirement
+      // Still record high-intent lead conversion and prompt fallback options
+      trackLead({
+        fullName: data.fullName,
+        email: data.email,
+        phone: data.phone,
+        subject: data.subject
+      });
+
       setSubmissionStatus({
         state: 'unconfigured',
         message: 'No live form submission endpoint found in VITE_CONTACT_FORM_ENDPOINT. You can submit directly via WhatsApp or your default email client below.',
@@ -136,6 +151,7 @@ export default function ContactForm({ prefillSubject = "" }) {
                   href={`https://wa.me/${companyInfo.phoneRaw}?text=Hello%20Dilip%20Wood%20Works,%20I%20would%20like%20to%20inquire%20about%20a%20woodworking%20project.`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackContact({ method: 'whatsapp', contentName: 'Contact Form Fallback WhatsApp' })}
                   className="inline-flex items-center space-x-1.5 bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors shadow-sm"
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -143,6 +159,7 @@ export default function ContactForm({ prefillSubject = "" }) {
                 </a>
                 <a
                   href={`mailto:${companyInfo.email}?subject=Project%20Inquiry%20-%20Dilip%20Wood%20Works`}
+                  onClick={() => trackContact({ method: 'email', contentName: 'Contact Form Fallback Email' })}
                   className="inline-flex items-center space-x-1.5 bg-stone-800 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-stone-900 transition-colors shadow-sm"
                 >
                   <Mail className="w-4 h-4" />
