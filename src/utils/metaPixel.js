@@ -72,10 +72,34 @@ export async function trackMetaEvent(eventName, options = {}) {
     ...(options.userData || {})
   };
 
+  // Resolve test event code from options, URL query (?test_event_code=...), sessionStorage, or env
+  let activeTestCode = options.testEventCode;
+  if (!activeTestCode && typeof window !== 'undefined') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryCode = urlParams.get('test_event_code');
+    if (queryCode) {
+      activeTestCode = queryCode;
+      try {
+        sessionStorage.setItem('meta_test_event_code', queryCode);
+      } catch (_) {}
+    } else {
+      try {
+        activeTestCode = sessionStorage.getItem('meta_test_event_code') || '';
+      } catch (_) {}
+    }
+  }
+  if (!activeTestCode && import.meta.env?.VITE_META_TEST_EVENT_CODE) {
+    activeTestCode = import.meta.env.VITE_META_TEST_EVENT_CODE;
+  }
+
   // 1. Browser Meta Pixel Event
   try {
     if (typeof window.fbq === 'function') {
-      window.fbq('track', eventName, customData, { eventID: eventId });
+      const pixelOptions = { eventID: eventId };
+      if (activeTestCode) {
+        pixelOptions.test_event_code = activeTestCode;
+      }
+      window.fbq('track', eventName, customData, pixelOptions);
     }
   } catch (err) {
     console.debug('[Meta Pixel] Browser event error:', err);
@@ -89,7 +113,7 @@ export async function trackMetaEvent(eventName, options = {}) {
       eventSourceUrl: window.location.href,
       userData,
       customData,
-      testEventCode: options.testEventCode
+      testEventCode: activeTestCode || undefined
     };
 
     fetch('/api/meta-conversion', {
